@@ -1,0 +1,11 @@
+{
+  "functions": {
+    "source": "functions"
+  },
+  "firestore": {
+    "database": "(default)",
+    "location": "asia-northeast2",
+    "rules": "docs/firestore.rules",
+    "indexes": "docs/firestore.indexes.json"
+  }
+}

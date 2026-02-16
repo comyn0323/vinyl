@@ -8,14 +8,27 @@
 import SwiftUI
 
 struct ContentView: View {
+    @AppStorage("onboardingCompleted") private var onboardingCompleted = false
+    @State private var appState = AppState()
+
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        Group {
+            if onboardingCompleted {
+                RootView()
+            } else {
+                OnboardingFlowView(
+                    onSpotifyConnect: {
+                        Task { await appState.signInWithSpotify() }
+                    },
+                    onFinish: {
+                        onboardingCompleted = true
+                    }
+                )
+            }
         }
-        .padding()
+        .onAppear {
+            appState.configure()
+        }
     }
 }
 
